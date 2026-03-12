@@ -9,17 +9,12 @@ author:
 format: 
 
   revealjs:
-    # css: styles.css
     transition: slide
     background-transition: fade
-    # parallax-background-image: images/fondo.png 
-    # parallax-background-size: "210px 90px"
-    # parallax-background-horizontal: 200
-    # parallax-background-vertical: 50
     slide-number: c/t  
     touch: true
     footer: HackODS UNAM 2026
-    logo: imagenes/logo.png
+    logo: img/logo.png
   
 ---
 
@@ -171,20 +166,44 @@ Formato binario/XML (`.xlsx`) con muchas más capacidades
 :::
 ::::
 
+
+## Espacio de trabajo
+
+```
+intro-jupyter-pandas/
+├── data/
+│   ├── ods03.csv
+│   └── economia.csv
+├── notebooks/
+│   ├── 001_paseo_jupyter.ipynb
+│   ├── 002_EDA_ODS.ipynb
+│   └── 003_primera_historia.ipynb
+└── pyproject.toml
+```
+
 # Intro a pandas {background-color="#2c3e50"}
 
-## Instalar pandas con uv
+## Preparar espacio de trabajo
 
 ```bash
+# Crear y moverte a espacio trabajo/directorio
+mkdir intro-jupyter-pandas
+cd intro-jupyter-pandas
+
+# Crear espacio de trabajo
+mkdir data 
+mkdir notebooks 
+
 # Crear un entorno virtual
 uv init 
 
-# Instalar pandas
-uv add pandas
+# Instalar pandas, jupyter notebook
+uv add pandas jupyter notebook openpyxl
 
-# Para leer archivos Excel también necesitas openpyxl
-uv add openpyxl
+## Correr libreta de jupyter
+uv run jupyter notebook
 ```
+
 
 ## ¿Qué es pandas?
 
@@ -194,27 +213,69 @@ La biblioteca estándar de Python para **análisis de datos tabulares**
 import pandas as pd
 ```
 
-. . .
 
-### Leer datos
+## Leer datos
 
 ```python
 # Desde un CSV
-df_csv = pd.read_csv("datos_ods.csv")
+nombre = pd.read_csv("datos_ods.csv")
 
 # Desde un Excel
-df_excel = pd.read_excel("datos_ods.xlsx")
+nombre2 = pd.read_excel("datos_ods.xlsx")
 
 # Desde un Excel con hoja específica
-df_hoja = pd.read_excel("datos_ods.xlsx", sheet_name="Indicadores")
+nombre3 = pd.read_excel("datos_ods.xlsx", sheet_name="Indicadores")
 ```
+
+## Buenos nombres para DataFrames
+
+El nombre debe contar **qué datos contiene**, como parte de una narrativa
+
+```python
+# Leer los datos
+ods_morelos = pd.read_csv("data/ods03.csv")
+economia = pd.read_csv("data/economia.csv")
+
+# Filtrar y transformar
+ods_morelos_2020 = ods_morelos[ods_morelos['anio'] == 2020]
+economia_por_estado = economia.groupby('estado').mean()
+```
+
+. . . 
+
+El código se lee como una historia:
+
+> *"Tomo los datos de ODS de Morelos, filtro los del 2020..."*
+
+## Malos nombres para DataFrames
+
+```python
+# No hagas esto
+df = pd.read_csv("data/ods03.csv")
+df2 = pd.read_csv("data/economia.csv")
+df3 = df[df['anio'] == 2020]
+datos = df3.groupby('estado').mean()
+```
+
+. . .
+
+### Evita tambien
+
+- **Acentos y caracteres especiales** en nombres de variables: `economía`, `año`, `índice`
+- **Espacios** en nombres de archivos: `mis datos.csv`
+- **Nombres genéricos**: `df`, `data`, `temp`, `x`, `resultado`
+- **Nombres muy largos**: `dataframe_con_todos_los_indicadores_del_ods_tres`
+
+. . .
+
+> Si mañana abres tu libreta y no entiendes qué es `df2`... el nombre era malo.
 
 ## El mighty DataFrame
 
 Un DataFrame es una **tabla** con filas y columnas, similar a una hoja de cálculo.
 
 ```python
-df.head()
+ods03.head()
 ```
 
 . . .
@@ -229,7 +290,7 @@ df.head()
 - **Columnas** — cada variable
 - **Índice** — identificador de cada fila (por defecto 0, 1, 2...)
 
-## Exploración rápida
+## Exploración rápida (ojo con el nombre)
 
 ```python
 df.shape        # (filas, columnas)

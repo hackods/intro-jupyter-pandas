@@ -6,8 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.26">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Guillermo Barrios del Valle">
   <title>Intro a Jupyter y Pandas</title>
@@ -414,43 +414,101 @@ Puebla,1.1.1,31.2,2020</code></pre>
 <li>Necesitas fórmulas integradas</li>
 </ul>
 </div></div>
+</section>
+<section id="espacio-de-trabajo" class="slide level2">
+<h2>Espacio de trabajo</h2>
+<pre><code>intro-jupyter-pandas/
+├── data/
+│   ├── ods03.csv
+│   └── economia.csv
+├── notebooks/
+│   ├── 001_paseo_jupyter.ipynb
+│   ├── 002_EDA_ODS.ipynb
+│   └── 003_primera_historia.ipynb
+└── pyproject.toml</code></pre>
 </section></section>
 <section>
 <section id="intro-a-pandas" class="title-slide slide level1 center" data-background-color="#2c3e50">
 <h1>Intro a pandas</h1>
 
 </section>
-<section id="instalar-pandas-con-uv" class="slide level2">
-<h2>Instalar pandas con uv</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="co"># Crear un entorno virtual</span></span>
-<span id="cb2-2"><a href=""></a><span class="ex">uv</span> init </span>
-<span id="cb2-3"><a href=""></a></span>
-<span id="cb2-4"><a href=""></a><span class="co"># Instalar pandas</span></span>
-<span id="cb2-5"><a href=""></a><span class="ex">uv</span> add pandas</span>
-<span id="cb2-6"><a href=""></a></span>
-<span id="cb2-7"><a href=""></a><span class="co"># Para leer archivos Excel también necesitas openpyxl</span></span>
-<span id="cb2-8"><a href=""></a><span class="ex">uv</span> add openpyxl</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="preparar-espacio-de-trabajo" class="slide level2">
+<h2>Preparar espacio de trabajo</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="co"># Crear y moverte a espacio trabajo/directorio</span></span>
+<span id="cb3-2"><a href=""></a><span class="fu">mkdir</span> intro-jupyter-pandas</span>
+<span id="cb3-3"><a href=""></a><span class="bu">cd</span> intro-jupyter-pandas</span>
+<span id="cb3-4"><a href=""></a></span>
+<span id="cb3-5"><a href=""></a><span class="co"># Crear espacio de trabajo</span></span>
+<span id="cb3-6"><a href=""></a><span class="fu">mkdir</span> data </span>
+<span id="cb3-7"><a href=""></a><span class="fu">mkdir</span> notebooks </span>
+<span id="cb3-8"><a href=""></a></span>
+<span id="cb3-9"><a href=""></a><span class="co"># Crear un entorno virtual</span></span>
+<span id="cb3-10"><a href=""></a><span class="ex">uv</span> init </span>
+<span id="cb3-11"><a href=""></a></span>
+<span id="cb3-12"><a href=""></a><span class="co"># Instalar pandas, jupyter notebook</span></span>
+<span id="cb3-13"><a href=""></a><span class="ex">uv</span> add pandas jupyter notebook openpyxl</span>
+<span id="cb3-14"><a href=""></a></span>
+<span id="cb3-15"><a href=""></a><span class="co">## Correr libreta de jupyter</span></span>
+<span id="cb3-16"><a href=""></a><span class="ex">uv</span> run jupyter notebook</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="qué-es-pandas" class="slide level2">
 <h2>¿Qué es pandas?</h2>
 <p>La biblioteca estándar de Python para <strong>análisis de datos tabulares</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="leer-datos" class="slide level2">
+<h2>Leer datos</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Desde un CSV</span></span>
+<span id="cb5-2"><a href=""></a>nombre <span class="op">=</span> pd.read_csv(<span class="st">"datos_ods.csv"</span>)</span>
+<span id="cb5-3"><a href=""></a></span>
+<span id="cb5-4"><a href=""></a><span class="co"># Desde un Excel</span></span>
+<span id="cb5-5"><a href=""></a>nombre2 <span class="op">=</span> pd.read_excel(<span class="st">"datos_ods.xlsx"</span>)</span>
+<span id="cb5-6"><a href=""></a></span>
+<span id="cb5-7"><a href=""></a><span class="co"># Desde un Excel con hoja específica</span></span>
+<span id="cb5-8"><a href=""></a>nombre3 <span class="op">=</span> pd.read_excel(<span class="st">"datos_ods.xlsx"</span>, sheet_name<span class="op">=</span><span class="st">"Indicadores"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="buenos-nombres-para-dataframes" class="slide level2">
+<h2>Buenos nombres para DataFrames</h2>
+<p>El nombre debe contar <strong>qué datos contiene</strong>, como parte de una narrativa</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Leer los datos</span></span>
+<span id="cb6-2"><a href=""></a>ods_morelos <span class="op">=</span> pd.read_csv(<span class="st">"data/ods03.csv"</span>)</span>
+<span id="cb6-3"><a href=""></a>economia <span class="op">=</span> pd.read_csv(<span class="st">"data/economia.csv"</span>)</span>
+<span id="cb6-4"><a href=""></a></span>
+<span id="cb6-5"><a href=""></a><span class="co"># Filtrar y transformar</span></span>
+<span id="cb6-6"><a href=""></a>ods_morelos_2020 <span class="op">=</span> ods_morelos[ods_morelos[<span class="st">'anio'</span>] <span class="op">==</span> <span class="dv">2020</span>]</span>
+<span id="cb6-7"><a href=""></a>economia_por_estado <span class="op">=</span> economia.groupby(<span class="st">'estado'</span>).mean()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
-<h3 id="leer-datos">Leer datos</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Desde un CSV</span></span>
-<span id="cb4-2"><a href=""></a>df_csv <span class="op">=</span> pd.read_csv(<span class="st">"datos_ods.csv"</span>)</span>
-<span id="cb4-3"><a href=""></a></span>
-<span id="cb4-4"><a href=""></a><span class="co"># Desde un Excel</span></span>
-<span id="cb4-5"><a href=""></a>df_excel <span class="op">=</span> pd.read_excel(<span class="st">"datos_ods.xlsx"</span>)</span>
-<span id="cb4-6"><a href=""></a></span>
-<span id="cb4-7"><a href=""></a><span class="co"># Desde un Excel con hoja específica</span></span>
-<span id="cb4-8"><a href=""></a>df_hoja <span class="op">=</span> pd.read_excel(<span class="st">"datos_ods.xlsx"</span>, sheet_name<span class="op">=</span><span class="st">"Indicadores"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El código se lee como una historia:</p>
+<blockquote>
+<p><em>“Tomo los datos de ODS de Morelos, filtro los del 2020…”</em></p>
+</blockquote>
+</div>
+</section>
+<section id="malos-nombres-para-dataframes" class="slide level2">
+<h2>Malos nombres para DataFrames</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># No hagas esto</span></span>
+<span id="cb7-2"><a href=""></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/ods03.csv"</span>)</span>
+<span id="cb7-3"><a href=""></a>df2 <span class="op">=</span> pd.read_csv(<span class="st">"data/economia.csv"</span>)</span>
+<span id="cb7-4"><a href=""></a>df3 <span class="op">=</span> df[df[<span class="st">'anio'</span>] <span class="op">==</span> <span class="dv">2020</span>]</span>
+<span id="cb7-5"><a href=""></a>datos <span class="op">=</span> df3.groupby(<span class="st">'estado'</span>).mean()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<h3 id="evita-tambien">Evita tambien</h3>
+<ul>
+<li><strong>Acentos y caracteres especiales</strong> en nombres de variables: <code>economía</code>, <code>año</code>, <code>índice</code></li>
+<li><strong>Espacios</strong> en nombres de archivos: <code>mis datos.csv</code></li>
+<li><strong>Nombres genéricos</strong>: <code>df</code>, <code>data</code>, <code>temp</code>, <code>x</code>, <code>resultado</code></li>
+<li><strong>Nombres muy largos</strong>: <code>dataframe_con_todos_los_indicadores_del_ods_tres</code></li>
+</ul>
+<p>. . .</p>
+<blockquote>
+<p>Si mañana abres tu libreta y no entiendes qué es <code>df2</code>… el nombre era malo.</p>
+</blockquote>
 </div>
 </section>
 <section id="el-mighty-dataframe" class="slide level2">
 <h2>El mighty DataFrame</h2>
 <p>Un DataFrame es una <strong>tabla</strong> con filas y columnas, similar a una hoja de cálculo.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>df.head()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>ods03.head()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
 <table class="caption-top">
 <thead>
@@ -493,17 +551,17 @@ Puebla,1.1.1,31.2,2020</code></pre>
 </ul>
 </div>
 </section>
-<section id="exploración-rápida" class="slide level2">
-<h2>Exploración rápida</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>df.shape        <span class="co"># (filas, columnas)</span></span>
-<span id="cb6-2"><a href=""></a>df.columns      <span class="co"># nombres de columnas</span></span>
-<span id="cb6-3"><a href=""></a>df.dtypes       <span class="co"># tipo de dato por columna</span></span>
-<span id="cb6-4"><a href=""></a>df.info()       <span class="co"># resumen completo</span></span>
-<span id="cb6-5"><a href=""></a>df.describe()   <span class="co"># estadísticas descriptivas</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="exploración-rápida-ojo-con-el-nombre" class="slide level2">
+<h2>Exploración rápida (ojo con el nombre)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>df.shape        <span class="co"># (filas, columnas)</span></span>
+<span id="cb9-2"><a href=""></a>df.columns      <span class="co"># nombres de columnas</span></span>
+<span id="cb9-3"><a href=""></a>df.dtypes       <span class="co"># tipo de dato por columna</span></span>
+<span id="cb9-4"><a href=""></a>df.info()       <span class="co"># resumen completo</span></span>
+<span id="cb9-5"><a href=""></a>df.describe()   <span class="co"># estadísticas descriptivas</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>df.head()       <span class="co"># primeras 5 filas</span></span>
-<span id="cb7-2"><a href=""></a>df.tail()       <span class="co"># últimas 5 filas</span></span>
-<span id="cb7-3"><a href=""></a>df.sample(<span class="dv">10</span>)   <span class="co"># 10 filas aleatorias</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>df.head()       <span class="co"># primeras 5 filas</span></span>
+<span id="cb10-2"><a href=""></a>df.tail()       <span class="co"># últimas 5 filas</span></span>
+<span id="cb10-3"><a href=""></a>df.sample(<span class="dv">10</span>)   <span class="co"># 10 filas aleatorias</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section></section>
 <section>
@@ -513,42 +571,42 @@ Puebla,1.1.1,31.2,2020</code></pre>
 </section>
 <section id="seleccionar-columnas" class="slide level2">
 <h2>Seleccionar columnas</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Una columna (regresa Serie)</span></span>
-<span id="cb8-2"><a href=""></a>df[<span class="st">'estado'</span>]</span>
-<span id="cb8-3"><a href=""></a></span>
-<span id="cb8-4"><a href=""></a><span class="co"># Varias columnas (regresa DataFrame)</span></span>
-<span id="cb8-5"><a href=""></a>df[[<span class="st">'estado'</span>, <span class="st">'valor'</span>, <span class="st">'año'</span>]]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># Una columna (regresa Serie)</span></span>
+<span id="cb11-2"><a href=""></a>df[<span class="st">'estado'</span>]</span>
+<span id="cb11-3"><a href=""></a></span>
+<span id="cb11-4"><a href=""></a><span class="co"># Varias columnas (regresa DataFrame)</span></span>
+<span id="cb11-5"><a href=""></a>df[[<span class="st">'estado'</span>, <span class="st">'valor'</span>, <span class="st">'año'</span>]]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="seleccionar-filas" class="slide level2">
 <h2>Seleccionar filas</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Por etiqueta del índice</span></span>
-<span id="cb9-2"><a href=""></a>df.loc[<span class="dv">0</span>]</span>
-<span id="cb9-3"><a href=""></a></span>
-<span id="cb9-4"><a href=""></a><span class="co"># Por posición</span></span>
-<span id="cb9-5"><a href=""></a>df.iloc[<span class="dv">0</span>:<span class="dv">5</span>]</span>
-<span id="cb9-6"><a href=""></a></span>
-<span id="cb9-7"><a href=""></a><span class="co"># Filas y columnas a la vez</span></span>
-<span id="cb9-8"><a href=""></a>df.loc[<span class="dv">0</span>:<span class="dv">5</span>, [<span class="st">'estado'</span>, <span class="st">'valor'</span>]]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="co"># Por etiqueta del índice</span></span>
+<span id="cb12-2"><a href=""></a>df.loc[<span class="dv">0</span>]</span>
+<span id="cb12-3"><a href=""></a></span>
+<span id="cb12-4"><a href=""></a><span class="co"># Por posición</span></span>
+<span id="cb12-5"><a href=""></a>df.iloc[<span class="dv">0</span>:<span class="dv">5</span>]</span>
+<span id="cb12-6"><a href=""></a></span>
+<span id="cb12-7"><a href=""></a><span class="co"># Filas y columnas a la vez</span></span>
+<span id="cb12-8"><a href=""></a>df.loc[<span class="dv">0</span>:<span class="dv">5</span>, [<span class="st">'estado'</span>, <span class="st">'valor'</span>]]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="filtrar-datos" class="slide level2">
 <h2>Filtrar datos</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Filtro simple</span></span>
-<span id="cb10-2"><a href=""></a>df[df[<span class="st">'año'</span>] <span class="op">==</span> <span class="dv">2020</span>]</span>
-<span id="cb10-3"><a href=""></a></span>
-<span id="cb10-4"><a href=""></a><span class="co"># Filtro con múltiples condiciones</span></span>
-<span id="cb10-5"><a href=""></a>df[(df[<span class="st">'año'</span>] <span class="op">==</span> <span class="dv">2020</span>) <span class="op">&amp;</span> (df[<span class="st">'estado'</span>] <span class="op">==</span> <span class="st">'Morelos'</span>)]</span>
-<span id="cb10-6"><a href=""></a></span>
-<span id="cb10-7"><a href=""></a><span class="co"># Filtrar por lista de valores</span></span>
-<span id="cb10-8"><a href=""></a>estados <span class="op">=</span> [<span class="st">'Morelos'</span>, <span class="st">'Puebla'</span>, <span class="st">'Oaxaca'</span>]</span>
-<span id="cb10-9"><a href=""></a>df[df[<span class="st">'estado'</span>].isin(estados)]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a><span class="co"># Filtro simple</span></span>
+<span id="cb13-2"><a href=""></a>df[df[<span class="st">'año'</span>] <span class="op">==</span> <span class="dv">2020</span>]</span>
+<span id="cb13-3"><a href=""></a></span>
+<span id="cb13-4"><a href=""></a><span class="co"># Filtro con múltiples condiciones</span></span>
+<span id="cb13-5"><a href=""></a>df[(df[<span class="st">'año'</span>] <span class="op">==</span> <span class="dv">2020</span>) <span class="op">&amp;</span> (df[<span class="st">'estado'</span>] <span class="op">==</span> <span class="st">'Morelos'</span>)]</span>
+<span id="cb13-6"><a href=""></a></span>
+<span id="cb13-7"><a href=""></a><span class="co"># Filtrar por lista de valores</span></span>
+<span id="cb13-8"><a href=""></a>estados <span class="op">=</span> [<span class="st">'Morelos'</span>, <span class="st">'Puebla'</span>, <span class="st">'Oaxaca'</span>]</span>
+<span id="cb13-9"><a href=""></a>df[df[<span class="st">'estado'</span>].isin(estados)]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="frecuencias" class="slide level2">
 <h2>Frecuencias</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># ¿Cuántos registros por estado?</span></span>
-<span id="cb11-2"><a href=""></a>df[<span class="st">'estado'</span>].value_counts()</span>
-<span id="cb11-3"><a href=""></a></span>
-<span id="cb11-4"><a href=""></a><span class="co"># ¿Cuántos indicadores distintos?</span></span>
-<span id="cb11-5"><a href=""></a>df[<span class="st">'indicador'</span>].nunique()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="co"># ¿Cuántos registros por estado?</span></span>
+<span id="cb14-2"><a href=""></a>df[<span class="st">'estado'</span>].value_counts()</span>
+<span id="cb14-3"><a href=""></a></span>
+<span id="cb14-4"><a href=""></a><span class="co"># ¿Cuántos indicadores distintos?</span></span>
+<span id="cb14-5"><a href=""></a>df[<span class="st">'indicador'</span>].nunique()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
 <section id="agrupación-y-visualización" class="title-slide slide level1 center" data-background-color="#2c3e50">
@@ -557,38 +615,38 @@ Puebla,1.1.1,31.2,2020</code></pre>
 </section>
 <section id="agrupar-con-groupby" class="slide level2">
 <h2>Agrupar con <code>groupby</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="co"># Promedio por estado</span></span>
-<span id="cb12-2"><a href=""></a>df.groupby(<span class="st">'estado'</span>)[<span class="st">'valor'</span>].mean()</span>
-<span id="cb12-3"><a href=""></a></span>
-<span id="cb12-4"><a href=""></a><span class="co"># Suma por ODS y año</span></span>
-<span id="cb12-5"><a href=""></a>df.groupby([<span class="st">'ods'</span>, <span class="st">'año'</span>])[<span class="st">'valor'</span>].<span class="bu">sum</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a><span class="co"># Promedio por estado</span></span>
+<span id="cb15-2"><a href=""></a>df.groupby(<span class="st">'estado'</span>)[<span class="st">'valor'</span>].mean()</span>
+<span id="cb15-3"><a href=""></a></span>
+<span id="cb15-4"><a href=""></a><span class="co"># Suma por ODS y año</span></span>
+<span id="cb15-5"><a href=""></a>df.groupby([<span class="st">'ods'</span>, <span class="st">'año'</span>])[<span class="st">'valor'</span>].<span class="bu">sum</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="ordenar-resultados" class="slide level2">
 <h2>Ordenar resultados</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a><span class="co"># Ordenar de mayor a menor</span></span>
-<span id="cb13-2"><a href=""></a>df.groupby(<span class="st">'estado'</span>)[<span class="st">'valor'</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href=""></a><span class="co"># Ordenar de mayor a menor</span></span>
+<span id="cb16-2"><a href=""></a>df.groupby(<span class="st">'estado'</span>)[<span class="st">'valor'</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="visualización-rápida-con-pandas" class="slide level2">
 <h2>Visualización rápida con pandas</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="co"># Gráfica de barras</span></span>
-<span id="cb14-2"><a href=""></a>df.groupby(<span class="st">'estado'</span>)[<span class="st">'valor'</span>].mean().sort_values().plot.barh()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href=""></a><span class="co"># Gráfica de barras</span></span>
+<span id="cb17-2"><a href=""></a>df.groupby(<span class="st">'estado'</span>)[<span class="st">'valor'</span>].mean().sort_values().plot.barh()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a><span class="co"># Gráfica de líneas — tendencia por año</span></span>
-<span id="cb15-2"><a href=""></a>df.groupby(<span class="st">'año'</span>)[<span class="st">'valor'</span>].mean().plot.line()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href=""></a><span class="co"># Gráfica de líneas — tendencia por año</span></span>
+<span id="cb18-2"><a href=""></a>df.groupby(<span class="st">'año'</span>)[<span class="st">'valor'</span>].mean().plot.line()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href=""></a><span class="co"># Comparar estados</span></span>
-<span id="cb16-2"><a href=""></a>tabla <span class="op">=</span> df.pivot_table(values<span class="op">=</span><span class="st">'valor'</span>, index<span class="op">=</span><span class="st">'año'</span>, columns<span class="op">=</span><span class="st">'estado'</span>)</span>
-<span id="cb16-3"><a href=""></a>tabla[[<span class="st">'Morelos'</span>, <span class="st">'Puebla'</span>]].plot.line()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href=""></a><span class="co"># Comparar estados</span></span>
+<span id="cb19-2"><a href=""></a>tabla <span class="op">=</span> df.pivot_table(values<span class="op">=</span><span class="st">'valor'</span>, index<span class="op">=</span><span class="st">'año'</span>, columns<span class="op">=</span><span class="st">'estado'</span>)</span>
+<span id="cb19-3"><a href=""></a>tabla[[<span class="st">'Morelos'</span>, <span class="st">'Puebla'</span>]].plot.line()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="exportar-resultados" class="slide level2">
 <h2>Exportar resultados</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href=""></a><span class="co"># Guardar a CSV</span></span>
-<span id="cb17-2"><a href=""></a>df.to_csv(<span class="st">"resultados.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb17-3"><a href=""></a></span>
-<span id="cb17-4"><a href=""></a><span class="co"># Guardar a Excel</span></span>
-<span id="cb17-5"><a href=""></a>df.to_excel(<span class="st">"resultados.xlsx"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href=""></a><span class="co"># Guardar a CSV</span></span>
+<span id="cb20-2"><a href=""></a>df.to_csv(<span class="st">"resultados.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb20-3"><a href=""></a></span>
+<span id="cb20-4"><a href=""></a><span class="co"># Guardar a Excel</span></span>
+<span id="cb20-5"><a href=""></a>df.to_excel(<span class="st">"resultados.xlsx"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
 <section id="cierre" class="title-slide slide level1 center" data-background-color="#2c3e50">
@@ -617,7 +675,7 @@ Puebla,1.1.1,31.2,2020</code></pre>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="imagenes/logo.png" class="slide-logo"></p>
+<p><img src="img/logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>HackODS UNAM 2026</p>
 </div>
