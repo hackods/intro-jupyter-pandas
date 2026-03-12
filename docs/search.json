@@ -1,0 +1,149 @@
+[
+  {
+    "objectID": "notebooks/001_PaseoJupyter.html",
+    "href": "notebooks/001_PaseoJupyter.html",
+    "title": "Esto no se hace",
+    "section": "",
+    "text": "a = 1\nb = 2\nc = a + b\nc\n\n3\na = 1\n b = 2 \n\n\n  Cell In[3], line 2\n    b = 2\n    ^\nIndentationError: unexpected indent"
+  },
+  {
+    "objectID": "notebooks/001_PaseoJupyter.html#esto-es-lo-mejor",
+    "href": "notebooks/001_PaseoJupyter.html#esto-es-lo-mejor",
+    "title": "Esto no se hace",
+    "section": "Esto es lo mejor",
+    "text": "Esto es lo mejor\n\nCeldas alineadas\nCódigo agrupado\nNo son nombres alusivos\n\n\na = 1\nb = 2\nc = a + b"
+  },
+  {
+    "objectID": "index.html#temas",
+    "href": "index.html#temas",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "Temas",
+    "text": "Temas\n\nPaseo por Jupyter Notebook\n¿Por qué Jupyter Notebook?\nBuenas y malas prácticas\nCSV vs Excel\nIntro a pandas\nEl mighty DataFrame\nVamos por un ejemplo"
+  },
+  {
+    "objectID": "index.html#paseo-por-jupyter-notebook",
+    "href": "index.html#paseo-por-jupyter-notebook",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "Paseo por Jupyter Notebook",
+    "text": "Paseo por Jupyter Notebook\n¿Qué es?\nUn entorno interactivo que permite combinar código, texto y visualizaciones en un solo documento.\n. . .\nComponentes principales\n\nCeldas de código — donde escribes y ejecutas Python\nCeldas de Markdown — donde documentas tu análisis\nSalidas — resultados, tablas, gráficas debajo de cada celda"
+  },
+  {
+    "objectID": "index.html#interfaz-de-jupyter",
+    "href": "index.html#interfaz-de-jupyter",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "Interfaz de Jupyter",
+    "text": "Interfaz de Jupyter\n\nBarra de menús — File, Edit, View, Cell, Kernel, Help\nBarra de herramientas — atajos para acciones comunes\nÁrea de trabajo — donde viven tus celdas\n\nAtajos esenciales\n\n\n\nAtajo\nAcción\n\n\n\n\nShift + Enter\nEjecutar celda y avanzar\n\n\nCtrl + Enter\nEjecutar celda sin avanzar\n\n\nA / B\nInsertar celda arriba / abajo\n\n\nM / Y\nCambiar a Markdown / Código"
+  },
+  {
+    "objectID": "index.html#por-qué-jupyter-notebook",
+    "href": "index.html#por-qué-jupyter-notebook",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "¿Por qué Jupyter Notebook?",
+    "text": "¿Por qué Jupyter Notebook?\n\n\nVentajas\n\nReproducibilidad\nDocumentación integrada\nExploración interactiva de datos\nFácil de compartir\n\n\nIdeal para\n\nAnálisis exploratorio\nPrototipos rápidos\nEnseñanza y talleres\nReportes con código\nCompartir en repositorios"
+  },
+  {
+    "objectID": "index.html#buenas-prácticas",
+    "href": "index.html#buenas-prácticas",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "Buenas prácticas",
+    "text": "Buenas prácticas\n\nEjecutar las celdas en orden, de arriba a abajo\nUsar Restart & Run All periodicamente (antes de guardar)\nDocumentar con celdas de Markdown\nMantener cada celda con una sola idea\nNombrar las variables de forma descriptiva\nAgrupar código que haga sentido\nNombrar libretas con numeración\nTener un espacio de trabajo claro"
+  },
+  {
+    "objectID": "index.html#malas-prácticas",
+    "href": "index.html#malas-prácticas",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "Malas prácticas",
+    "text": "Malas prácticas\n\nEjecutar celdas fuera de orden y depender de ese estado\nDejar celdas con código comentado o sin usar\nPoner todo el análisis en una sola celda gigante\nNo reiniciar el kernel antes de guardar/documentar\nNo importar paquetes en la primera celda\nNo nombrar libretas"
+  },
+  {
+    "objectID": "index.html#qué-es-un-csv",
+    "href": "index.html#qué-es-un-csv",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "¿Qué es un CSV?",
+    "text": "¿Qué es un CSV?\nComma Separated Values — un archivo de texto plano\nestado,indicador,valor,año\nMorelos,1.1.1,23.5,2020\nPuebla,1.1.1,31.2,2020\n\nCualquier editor de texto lo puede abrir\nLigero y portable\nSin formato visual, sin fórmulas, sin hojas múltiples"
+  },
+  {
+    "objectID": "index.html#qué-es-un-archivo-excel",
+    "href": "index.html#qué-es-un-archivo-excel",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "¿Qué es un archivo Excel?",
+    "text": "¿Qué es un archivo Excel?\nFormato binario/XML (.xlsx) con muchas más capacidades\n\nMúltiples hojas en un solo archivo\nFormato visual (colores, negritas, bordes)\nFórmulas y gráficas embebidas\nMás pesado que un CSV"
+  },
+  {
+    "objectID": "index.html#csv-vs-excel-comparación",
+    "href": "index.html#csv-vs-excel-comparación",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "CSV vs Excel — Comparación",
+    "text": "CSV vs Excel — Comparación\n\n\n\nCaracterística\nCSV\nExcel (.xlsx)\n\n\n\n\nFormato\nTexto plano\nBinario/XML\n\n\nTamaño\nLigero\nMás pesado\n\n\nHojas múltiples\nNo\nSí\n\n\nFormato visual\nNo\nSí\n\n\nFórmulas\nNo\nSí\n\n\nInteroperabilidad\nSi\nNo\n\n\nEditable en texto\nSí\nNo"
+  },
+  {
+    "objectID": "index.html#cuándo-usar-cuál",
+    "href": "index.html#cuándo-usar-cuál",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "¿Cuándo usar cuál?",
+    "text": "¿Cuándo usar cuál?\n\n\nUsa CSV cuando\n\nIntercambias datos entre sistemas\nNecesitas un formato universal\nTrabajas con datos tabulares simples\nQuieres archivos ligeros\n\n\nUsa Excel cuando\n\nNecesitas múltiples hojas\nRequieres formato visual\nTu audiencia no es técnica\nNecesitas fórmulas integradas"
+  },
+  {
+    "objectID": "index.html#espacio-de-trabajo",
+    "href": "index.html#espacio-de-trabajo",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "Espacio de trabajo",
+    "text": "Espacio de trabajo\nintro-jupyter-pandas/\n├── data/\n│   ├── ods03.csv\n│   └── economia.csv\n├── notebooks/\n│   ├── 001_paseo_jupyter.ipynb\n│   ├── 002_EDA_ODS.ipynb\n│   └── 003_primera_historia.ipynb\n└── pyproject.toml"
+  },
+  {
+    "objectID": "index.html#preparar-espacio-de-trabajo",
+    "href": "index.html#preparar-espacio-de-trabajo",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "Preparar espacio de trabajo",
+    "text": "Preparar espacio de trabajo\n# Crear y moverte a espacio trabajo/directorio\nmkdir intro-jupyter-pandas\ncd intro-jupyter-pandas\n\n# Crear espacio de trabajo\nmkdir data \nmkdir notebooks \n\n# Crear un entorno virtual\nuv init \n\n# Instalar pandas, jupyter notebook\nuv add pandas jupyter notebook openpyxl\n\n## Correr libreta de jupyter\nuv run jupyter notebook"
+  },
+  {
+    "objectID": "index.html#qué-es-pandas",
+    "href": "index.html#qué-es-pandas",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "¿Qué es pandas?",
+    "text": "¿Qué es pandas?\nLa biblioteca estándar de Python para análisis de datos tabulares\nimport pandas as pd"
+  },
+  {
+    "objectID": "index.html#leer-datos",
+    "href": "index.html#leer-datos",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "Leer datos",
+    "text": "Leer datos\n# Desde un CSV\nnombre = pd.read_csv(\"datos_ods.csv\")\n\n# Desde un Excel\nnombre2 = pd.read_excel(\"datos_ods.xlsx\")\n\n# Desde un Excel con hoja específica\nnombre3 = pd.read_excel(\"datos_ods.xlsx\", sheet_name=\"Indicadores\")"
+  },
+  {
+    "objectID": "index.html#buenos-nombres-para-dataframes",
+    "href": "index.html#buenos-nombres-para-dataframes",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "Buenos nombres para DataFrames",
+    "text": "Buenos nombres para DataFrames\nEl nombre debe contar qué datos contiene, como parte de una narrativa\n# Leer los datos\nods_morelos = pd.read_csv(\"data/ods03.csv\")\neconomia = pd.read_csv(\"data/economia.csv\")\n\n# Filtrar y transformar\nods_morelos_2020 = ods_morelos[ods_morelos['anio'] == 2020]\neconomia_por_estado = economia.groupby('estado').mean()\n\nEl código se lee como una historia:\n\n“Tomo los datos de ODS de Morelos, filtro los del 2020…”"
+  },
+  {
+    "objectID": "index.html#malos-nombres-para-dataframes",
+    "href": "index.html#malos-nombres-para-dataframes",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "Malos nombres para DataFrames",
+    "text": "Malos nombres para DataFrames\n# No hagas esto\ndf = pd.read_csv(\"data/ods03.csv\")\ndf2 = pd.read_csv(\"data/economia.csv\")\ndf3 = df[df['anio'] == 2020]\ndatos = df3.groupby('estado').mean()\n\nEvita tambien\n\nAcentos y caracteres especiales en nombres de variables: economía, año, índice\nEspacios en nombres de archivos: mis datos.csv\nNombres genéricos: df, data, temp, x, resultado\nNombres muy largos: dataframe_con_todos_los_indicadores_del_ods_tres\n\n. . .\n\nSi mañana abres tu libreta y no entiendes qué es df2… el nombre era malo."
+  },
+  {
+    "objectID": "index.html#el-mighty-dataframe",
+    "href": "index.html#el-mighty-dataframe",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "El mighty DataFrame",
+    "text": "El mighty DataFrame\nUn DataFrame es una tabla con filas y columnas, similar a una hoja de cálculo.\nods03.head()\n\n\n\n\n\nestado\nindicador\nvalor\naño\n\n\n\n\n0\nMorelos\n1.1.1\n23.5\n2020\n\n\n1\nPuebla\n1.1.1\n31.2\n2020\n\n\n2\nOaxaca\n1.1.1\n45.1\n2020\n\n\n\n\nFilas — cada registro (observación)\nColumnas — cada variable\nÍndice — identificador de cada fila (por defecto 0, 1, 2…)"
+  },
+  {
+    "objectID": "index.html#exploración-rápida-ojo-con-el-nombre",
+    "href": "index.html#exploración-rápida-ojo-con-el-nombre",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "Exploración rápida (ojo con el nombre)",
+    "text": "Exploración rápida (ojo con el nombre)\ndf.shape        # (filas, columnas)\ndf.columns      # nombres de columnas\ndf.dtypes       # tipo de dato por columna\ndf.info()       # resumen completo\ndf.describe()   # estadísticas descriptivas\n\ndf.head()       # primeras 5 filas\ndf.tail()       # últimas 5 filas\ndf.sample(10)   # 10 filas aleatorias"
+  },
+  {
+    "objectID": "index.html#agenda-2030-méxico",
+    "href": "index.html#agenda-2030-méxico",
+    "title": "Intro a Jupyter y Pandas",
+    "section": "Agenda 2030 México",
+    "text": "Agenda 2030 México\nVamos a trabajar con datos abiertos de agenda2030.mx"
+  }
+]
