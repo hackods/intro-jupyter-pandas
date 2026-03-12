@@ -27,8 +27,7 @@ format:
 - CSV vs Excel
 - Intro a pandas
 - El mighty DataFrame
-- Selección y filtrado
-- Agrupación y visualización
+- Vamos por un ejemplo
 
 # Jupyter Notebook {background-color="#2c3e50"}
 
@@ -308,125 +307,8 @@ df.tail()       # últimas 5 filas
 df.sample(10)   # 10 filas aleatorias
 ```
 
-# Selección y filtrado {background-color="#2c3e50"}
+# Vamos por un ejemplo {background-color="#2c3e50"}
 
-## Seleccionar columnas
+## Agenda 2030 México
 
-```python
-# Una columna (regresa Serie)
-df['estado']
-
-# Varias columnas (regresa DataFrame)
-df[['estado', 'valor', 'año']]
-```
-
-. . .
-
-## Seleccionar filas
-
-```python
-# Por etiqueta del índice
-df.loc[0]
-
-# Por posición
-df.iloc[0:5]
-
-# Filas y columnas a la vez
-df.loc[0:5, ['estado', 'valor']]
-```
-
-## Filtrar datos
-
-```python
-# Filtro simple
-df[df['año'] == 2020]
-
-# Filtro con múltiples condiciones
-df[(df['año'] == 2020) & (df['estado'] == 'Morelos')]
-
-# Filtrar por lista de valores
-estados = ['Morelos', 'Puebla', 'Oaxaca']
-df[df['estado'].isin(estados)]
-```
-
-. . .
-
-## Frecuencias
-
-```python
-# ¿Cuántos registros por estado?
-df['estado'].value_counts()
-
-# ¿Cuántos indicadores distintos?
-df['indicador'].nunique()
-```
-
-# Agrupación y visualización {background-color="#2c3e50"}
-
-## Agrupar con `groupby`
-
-```python
-# Promedio por estado
-df.groupby('estado')['valor'].mean()
-
-# Suma por ODS y año
-df.groupby(['ods', 'año'])['valor'].sum()
-```
-
-. . .
-
-## Ordenar resultados
-
-```python
-# Ordenar de mayor a menor
-df.groupby('estado')['valor'].mean().sort_values(ascending=False)
-```
-
-## Visualización rápida con pandas
-
-```python
-# Gráfica de barras
-df.groupby('estado')['valor'].mean().sort_values().plot.barh()
-```
-
-. . .
-
-```python
-# Gráfica de líneas — tendencia por año
-df.groupby('año')['valor'].mean().plot.line()
-```
-
-. . .
-
-```python
-# Comparar estados
-tabla = df.pivot_table(values='valor', index='año', columns='estado')
-tabla[['Morelos', 'Puebla']].plot.line()
-```
-
-## Exportar resultados
-
-```python
-# Guardar a CSV
-df.to_csv("resultados.csv", index=False)
-
-# Guardar a Excel
-df.to_excel("resultados.xlsx", index=False)
-```
-
-# Cierre {background-color="#2c3e50"}
-
-## Recapitulación
-
-1. **Jupyter Notebook** — entorno interactivo para análisis
-2. **CSV vs Excel** — texto plano vs formato enriquecido
-3. **pandas** — leer, explorar y manipular datos tabulares
-4. **DataFrame** — seleccionar, filtrar, agrupar
-5. **Visualización** — gráficas rápidas directo desde pandas
-
-## Recursos para seguir aprendiendo
-
-- [Documentación oficial de pandas](https://pandas.pydata.org/docs/)
-- [Jupyter Notebook docs](https://jupyter-notebook.readthedocs.io/)
-- [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
-- [Agenda 2030 México — Datos abiertos](https://agenda2030.mx/)
+Vamos a trabajar con datos abiertos de [agenda2030.mx](https://agenda2030.mx/)
