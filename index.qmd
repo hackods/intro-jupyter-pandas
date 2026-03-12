@@ -1,0 +1,371 @@
+---
+title: "Intro a Jupyter y Pandas"
+lang: es
+
+author:
+  name: Guillermo Barrios del Valle
+  email: gbv@ier.unam.mx
+  afiliation: Instituto de Energías Renovables, UNAM
+format: 
+
+  revealjs:
+    # css: styles.css
+    transition: slide
+    background-transition: fade
+    # parallax-background-image: images/fondo.png 
+    # parallax-background-size: "210px 90px"
+    # parallax-background-horizontal: 200
+    # parallax-background-vertical: 50
+    slide-number: c/t  
+    touch: true
+    footer: HackODS UNAM 2026
+    logo: imagenes/logo.png
+  
+---
+
+
+## Temas
+
+- Paseo por Jupyter Notebook
+- ¿Por qué Jupyter Notebook?
+- Buenas y malas prácticas
+- CSV vs Excel
+- Intro a pandas
+- El mighty DataFrame
+- Selección y filtrado
+- Agrupación y visualización
+
+# Jupyter Notebook {background-color="#2c3e50"}
+
+## Paseo por Jupyter Notebook
+
+### ¿Qué es?
+
+Un entorno interactivo que permite combinar **código**, **texto** y **visualizaciones** en un solo documento.
+
+. . .
+
+### Componentes principales
+
+- **Celdas de código** — donde escribes y ejecutas Python
+- **Celdas de Markdown** — donde documentas tu análisis
+- **Salidas** — resultados, tablas, gráficas debajo de cada celda
+
+## Interfaz de Jupyter
+
+
+- **Barra de menús** — File, Edit, View, Cell, Kernel, Help
+- **Barra de herramientas** — atajos para acciones comunes
+- **Área de trabajo** — donde viven tus celdas
+
+
+### Atajos esenciales
+
+| Atajo | Acción |
+|-------|--------|
+| `Shift + Enter` | Ejecutar celda y avanzar |
+| `Ctrl + Enter` | Ejecutar celda sin avanzar |
+| `A` / `B` | Insertar celda arriba / abajo |
+| `M` / `Y` | Cambiar a Markdown / Código |
+
+## ¿Por qué Jupyter Notebook?
+
+:::: {.columns}
+::: {.column width="50%"}
+### Ventajas
+
+- Reproducibilidad
+- Documentación integrada
+- Exploración interactiva de datos
+- Fácil de compartir
+:::
+
+::: {.column width="50%"}
+### Ideal para
+
+- Análisis exploratorio
+- Prototipos rápidos
+- Enseñanza y talleres
+- Reportes con código
+- Compartir en repositorios
+:::
+::::
+
+## Buenas prácticas
+
+1. Ejecutar las celdas **en orden**, de arriba a abajo
+2. Usar **Restart & Run All** periodicamente (antes de guardar)
+3. Documentar con celdas de **Markdown**
+4. Mantener cada celda con **una sola idea**
+5. Nombrar las variables de forma **descriptiva**
+6. **Agrupar** código que haga sentido
+7. Nombrar libretas con numeración
+8. Tener un **espacio** de trabajo claro
+
+
+## Malas prácticas
+
+- Ejecutar celdas fuera de orden y depender de ese estado
+- Dejar celdas con código comentado o sin usar
+- Poner todo el análisis en una sola celda gigante
+- No reiniciar el kernel antes de guardar/documentar
+- No importar paquetes en la primera celda
+- No nombrar libretas
+
+# CSV vs Excel {background-color="#2c3e50"}
+
+## ¿Qué es un CSV?
+
+**C**omma **S**eparated **V**alues — un archivo de texto plano
+
+```
+estado,indicador,valor,año
+Morelos,1.1.1,23.5,2020
+Puebla,1.1.1,31.2,2020
+```
+
+- Cualquier editor de texto lo puede abrir
+- Ligero y portable
+- Sin formato visual, sin fórmulas, sin hojas múltiples
+
+## ¿Qué es un archivo Excel?
+
+Formato binario/XML (`.xlsx`) con muchas más capacidades
+
+- Múltiples hojas en un solo archivo
+- Formato visual (colores, negritas, bordes)
+- Fórmulas y gráficas embebidas
+- Más pesado que un CSV
+
+## CSV vs Excel — Comparación
+
+| Característica | CSV | Excel (.xlsx) |
+|---------------|-----|---------------|
+| Formato | Texto plano | Binario/XML |
+| Tamaño | Ligero | Más pesado |
+| Hojas múltiples | No | Sí |
+| Formato visual | No | Sí |
+| Fórmulas | No | Sí |
+| Interoperabilidad | Si | No |
+| Editable en texto | Sí | No |
+
+## ¿Cuándo usar cuál?
+
+:::: {.columns}
+::: {.column width="50%"}
+### Usa CSV cuando
+
+- Intercambias datos entre sistemas
+- Necesitas un formato universal
+- Trabajas con datos tabulares simples
+- Quieres archivos ligeros
+:::
+
+::: {.column width="50%"}
+### Usa Excel cuando
+
+- Necesitas múltiples hojas
+- Requieres formato visual
+- Tu audiencia no es técnica
+- Necesitas fórmulas integradas
+:::
+::::
+
+# Intro a pandas {background-color="#2c3e50"}
+
+## Instalar pandas con uv
+
+```bash
+# Crear un entorno virtual
+uv init 
+
+# Instalar pandas
+uv add pandas
+
+# Para leer archivos Excel también necesitas openpyxl
+uv add openpyxl
+```
+
+## ¿Qué es pandas?
+
+La biblioteca estándar de Python para **análisis de datos tabulares**
+
+```python
+import pandas as pd
+```
+
+. . .
+
+### Leer datos
+
+```python
+# Desde un CSV
+df_csv = pd.read_csv("datos_ods.csv")
+
+# Desde un Excel
+df_excel = pd.read_excel("datos_ods.xlsx")
+
+# Desde un Excel con hoja específica
+df_hoja = pd.read_excel("datos_ods.xlsx", sheet_name="Indicadores")
+```
+
+## El mighty DataFrame
+
+Un DataFrame es una **tabla** con filas y columnas, similar a una hoja de cálculo.
+
+```python
+df.head()
+```
+
+. . .
+
+| | estado | indicador | valor | año |
+|---|--------|-----------|-------|------|
+| 0 | Morelos | 1.1.1 | 23.5 | 2020 |
+| 1 | Puebla | 1.1.1 | 31.2 | 2020 |
+| 2 | Oaxaca | 1.1.1 | 45.1 | 2020 |
+
+- **Filas** — cada registro (observación)
+- **Columnas** — cada variable
+- **Índice** — identificador de cada fila (por defecto 0, 1, 2...)
+
+## Exploración rápida
+
+```python
+df.shape        # (filas, columnas)
+df.columns      # nombres de columnas
+df.dtypes       # tipo de dato por columna
+df.info()       # resumen completo
+df.describe()   # estadísticas descriptivas
+```
+
+. . .
+
+```python
+df.head()       # primeras 5 filas
+df.tail()       # últimas 5 filas
+df.sample(10)   # 10 filas aleatorias
+```
+
+# Selección y filtrado {background-color="#2c3e50"}
+
+## Seleccionar columnas
+
+```python
+# Una columna (regresa Serie)
+df['estado']
+
+# Varias columnas (regresa DataFrame)
+df[['estado', 'valor', 'año']]
+```
+
+. . .
+
+## Seleccionar filas
+
+```python
+# Por etiqueta del índice
+df.loc[0]
+
+# Por posición
+df.iloc[0:5]
+
+# Filas y columnas a la vez
+df.loc[0:5, ['estado', 'valor']]
+```
+
+## Filtrar datos
+
+```python
+# Filtro simple
+df[df['año'] == 2020]
+
+# Filtro con múltiples condiciones
+df[(df['año'] == 2020) & (df['estado'] == 'Morelos')]
+
+# Filtrar por lista de valores
+estados = ['Morelos', 'Puebla', 'Oaxaca']
+df[df['estado'].isin(estados)]
+```
+
+. . .
+
+## Frecuencias
+
+```python
+# ¿Cuántos registros por estado?
+df['estado'].value_counts()
+
+# ¿Cuántos indicadores distintos?
+df['indicador'].nunique()
+```
+
+# Agrupación y visualización {background-color="#2c3e50"}
+
+## Agrupar con `groupby`
+
+```python
+# Promedio por estado
+df.groupby('estado')['valor'].mean()
+
+# Suma por ODS y año
+df.groupby(['ods', 'año'])['valor'].sum()
+```
+
+. . .
+
+## Ordenar resultados
+
+```python
+# Ordenar de mayor a menor
+df.groupby('estado')['valor'].mean().sort_values(ascending=False)
+```
+
+## Visualización rápida con pandas
+
+```python
+# Gráfica de barras
+df.groupby('estado')['valor'].mean().sort_values().plot.barh()
+```
+
+. . .
+
+```python
+# Gráfica de líneas — tendencia por año
+df.groupby('año')['valor'].mean().plot.line()
+```
+
+. . .
+
+```python
+# Comparar estados
+tabla = df.pivot_table(values='valor', index='año', columns='estado')
+tabla[['Morelos', 'Puebla']].plot.line()
+```
+
+## Exportar resultados
+
+```python
+# Guardar a CSV
+df.to_csv("resultados.csv", index=False)
+
+# Guardar a Excel
+df.to_excel("resultados.xlsx", index=False)
+```
+
+# Cierre {background-color="#2c3e50"}
+
+## Recapitulación
+
+1. **Jupyter Notebook** — entorno interactivo para análisis
+2. **CSV vs Excel** — texto plano vs formato enriquecido
+3. **pandas** — leer, explorar y manipular datos tabulares
+4. **DataFrame** — seleccionar, filtrar, agrupar
+5. **Visualización** — gráficas rápidas directo desde pandas
+
+## Recursos para seguir aprendiendo
+
+- [Documentación oficial de pandas](https://pandas.pydata.org/docs/)
+- [Jupyter Notebook docs](https://jupyter-notebook.readthedocs.io/)
+- [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
+- [Agenda 2030 México — Datos abiertos](https://agenda2030.mx/)

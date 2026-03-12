@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/tabby.min.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.26">
+
+  <meta name="author" content="Guillermo Barrios del Valle">
+  <title>Intro a Jupyter y Pandas</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Intro a Jupyter y Pandas</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Guillermo Barrios del Valle 
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:gbv@ier.unam.mx">gbv@ier.unam.mx</a>
+</div>
+</div>
+</div>
+
+</section>
+<section id="temas" class="slide level2">
+<h2>Temas</h2>
+<ul>
+<li>Paseo por Jupyter Notebook</li>
+<li>¿Por qué Jupyter Notebook?</li>
+<li>Buenas y malas prácticas</li>
+<li>CSV vs Excel</li>
+<li>Intro a pandas</li>
+<li>El mighty DataFrame</li>
+<li>Selección y filtrado</li>
+<li>Agrupación y visualización</li>
+</ul>
+</section>
+<section>
+<section id="jupyter-notebook" class="title-slide slide level1 center" data-background-color="#2c3e50">
+<h1>Jupyter Notebook</h1>
+
+</section>
+<section id="paseo-por-jupyter-notebook" class="slide level2">
+<h2>Paseo por Jupyter Notebook</h2>
+<h3 id="qué-es">¿Qué es?</h3>
+<p>Un entorno interactivo que permite combinar <strong>código</strong>, <strong>texto</strong> y <strong>visualizaciones</strong> en un solo documento.</p>
+<p>. . .</p>
+<h3 id="componentes-principales">Componentes principales</h3>
+<ul>
+<li><strong>Celdas de código</strong> — donde escribes y ejecutas Python</li>
+<li><strong>Celdas de Markdown</strong> — donde documentas tu análisis</li>
+<li><strong>Salidas</strong> — resultados, tablas, gráficas debajo de cada celda</li>
+</ul>
+</section>
+<section id="interfaz-de-jupyter" class="slide level2">
+<h2>Interfaz de Jupyter</h2>
+<ul>
+<li><strong>Barra de menús</strong> — File, Edit, View, Cell, Kernel, Help</li>
+<li><strong>Barra de herramientas</strong> — atajos para acciones comunes</li>
+<li><strong>Área de trabajo</strong> — donde viven tus celdas</li>
+</ul>
+<h3 id="atajos-esenciales">Atajos esenciales</h3>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Atajo</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Shift + Enter</code></td>
+<td>Ejecutar celda y avanzar</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl + Enter</code></td>
+<td>Ejecutar celda sin avanzar</td>
+</tr>
+<tr class="odd">
+<td><code>A</code> / <code>B</code></td>
+<td>Insertar celda arriba / abajo</td>
+</tr>
+<tr class="even">
+<td><code>M</code> / <code>Y</code></td>
+<td>Cambiar a Markdown / Código</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="por-qué-jupyter-notebook" class="slide level2">
+<h2>¿Por qué Jupyter Notebook?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="ventajas">Ventajas</h3>
+<ul>
+<li>Reproducibilidad</li>
+<li>Documentación integrada</li>
+<li>Exploración interactiva de datos</li>
+<li>Fácil de compartir</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h3 id="ideal-para">Ideal para</h3>
+<ul>
+<li>Análisis exploratorio</li>
+<li>Prototipos rápidos</li>
+<li>Enseñanza y talleres</li>
+<li>Reportes con código</li>
+<li>Compartir en repositorios</li>
+</ul>
+</div></div>
+</section>
+<section id="buenas-prácticas" class="slide level2">
+<h2>Buenas prácticas</h2>
+<ol type="1">
+<li>Ejecutar las celdas <strong>en orden</strong>, de arriba a abajo</li>
+<li>Usar <strong>Restart &amp; Run All</strong> periodicamente (antes de guardar)</li>
+<li>Documentar con celdas de <strong>Markdown</strong></li>
+<li>Mantener cada celda con <strong>una sola idea</strong></li>
+<li>Nombrar las variables de forma <strong>descriptiva</strong></li>
+<li><strong>Agrupar</strong> código que haga sentido</li>
+<li>Nombrar libretas con numeración</li>
+<li>Tener un <strong>espacio</strong> de trabajo claro</li>
+</ol>
+</section>
+<section id="malas-prácticas" class="slide level2">
+<h2>Malas prácticas</h2>
+<ul>
+<li>Ejecutar celdas fuera de orden y depender de ese estado</li>
+<li>Dejar celdas con código comentado o sin usar</li>
+<li>Poner todo el análisis en una sola celda gigante</li>
+<li>No reiniciar el kernel antes de guardar/documentar</li>
+<li>No importar paquetes en la primera celda</li>
+<li>No nombrar libretas</li>
+</ul>
+</section></section>
+<section>
+<section id="csv-vs-excel" class="title-slide slide level1 center" data-background-color="#2c3e50">
+<h1>CSV vs Excel</h1>
+
+</section>
+<section id="qué-es-un-csv" class="slide level2">
+<h2>¿Qué es un CSV?</h2>
+<p><strong>C</strong>omma <strong>S</strong>eparated <strong>V</strong>alues — un archivo de texto plano</p>
+<pre><code>estado,indicador,valor,año
+Morelos,1.1.1,23.5,2020
+Puebla,1.1.1,31.2,2020</code></pre>
+<ul>
+<li>Cualquier editor de texto lo puede abrir</li>
+<li>Ligero y portable</li>
+<li>Sin formato visual, sin fórmulas, sin hojas múltiples</li>
+</ul>
+</section>
+<section id="qué-es-un-archivo-excel" class="slide level2">
+<h2>¿Qué es un archivo Excel?</h2>
+<p>Formato binario/XML (<code>.xlsx</code>) con muchas más capacidades</p>
+<ul>
+<li>Múltiples hojas en un solo archivo</li>
+<li>Formato visual (colores, negritas, bordes)</li>
+<li>Fórmulas y gráficas embebidas</li>
+<li>Más pesado que un CSV</li>
+</ul>
+</section>
+<section id="csv-vs-excel-comparación" class="slide level2">
+<h2>CSV vs Excel — Comparación</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Característica</th>
+<th>CSV</th>
+<th>Excel (.xlsx)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Formato</td>
+<td>Texto plano</td>
+<td>Binario/XML</td>
+</tr>
+<tr class="even">
+<td>Tamaño</td>
+<td>Ligero</td>
+<td>Más pesado</td>
+</tr>
+<tr class="odd">
+<td>Hojas múltiples</td>
+<td>No</td>
+<td>Sí</td>
+</tr>
+<tr class="even">
+<td>Formato visual</td>
+<td>No</td>
+<td>Sí</td>
+</tr>
+<tr class="odd">
+<td>Fórmulas</td>
+<td>No</td>
+<td>Sí</td>
+</tr>
+<tr class="even">
+<td>Interoperabilidad</td>
+<td>Si</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>Editable en texto</td>
+<td>Sí</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cuándo-usar-cuál" class="slide level2">
+<h2>¿Cuándo usar cuál?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="usa-csv-cuando">Usa CSV cuando</h3>
+<ul>
+<li>Intercambias datos entre sistemas</li>
+<li>Necesitas un formato universal</li>
+<li>Trabajas con datos tabulares simples</li>
+<li>Quieres archivos ligeros</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h3 id="usa-excel-cuando">Usa Excel cuando</h3>
+<ul>
+<li>Necesitas múltiples hojas</li>
+<li>Requieres formato visual</li>
+<li>Tu audiencia no es técnica</li>
+<li>Necesitas fórmulas integradas</li>
+</ul>
+</div></div>
+</section></section>
+<section>
+<section id="intro-a-pandas" class="title-slide slide level1 center" data-background-color="#2c3e50">
+<h1>Intro a pandas</h1>
+
+</section>
+<section id="instalar-pandas-con-uv" class="slide level2">
+<h2>Instalar pandas con uv</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="co"># Crear un entorno virtual</span></span>
+<span id="cb2-2"><a href=""></a><span class="ex">uv</span> init </span>
+<span id="cb2-3"><a href=""></a></span>
+<span id="cb2-4"><a href=""></a><span class="co"># Instalar pandas</span></span>
+<span id="cb2-5"><a href=""></a><span class="ex">uv</span> add pandas</span>
+<span id="cb2-6"><a href=""></a></span>
+<span id="cb2-7"><a href=""></a><span class="co"># Para leer archivos Excel también necesitas openpyxl</span></span>
+<span id="cb2-8"><a href=""></a><span class="ex">uv</span> add openpyxl</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="qué-es-pandas" class="slide level2">
+<h2>¿Qué es pandas?</h2>
+<p>La biblioteca estándar de Python para <strong>análisis de datos tabulares</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<h3 id="leer-datos">Leer datos</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Desde un CSV</span></span>
+<span id="cb4-2"><a href=""></a>df_csv <span class="op">=</span> pd.read_csv(<span class="st">"datos_ods.csv"</span>)</span>
+<span id="cb4-3"><a href=""></a></span>
+<span id="cb4-4"><a href=""></a><span class="co"># Desde un Excel</span></span>
+<span id="cb4-5"><a href=""></a>df_excel <span class="op">=</span> pd.read_excel(<span class="st">"datos_ods.xlsx"</span>)</span>
+<span id="cb4-6"><a href=""></a></span>
+<span id="cb4-7"><a href=""></a><span class="co"># Desde un Excel con hoja específica</span></span>
+<span id="cb4-8"><a href=""></a>df_hoja <span class="op">=</span> pd.read_excel(<span class="st">"datos_ods.xlsx"</span>, sheet_name<span class="op">=</span><span class="st">"Indicadores"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="el-mighty-dataframe" class="slide level2">
+<h2>El mighty DataFrame</h2>
+<p>Un DataFrame es una <strong>tabla</strong> con filas y columnas, similar a una hoja de cálculo.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>df.head()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>estado</th>
+<th>indicador</th>
+<th>valor</th>
+<th>año</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Morelos</td>
+<td>1.1.1</td>
+<td>23.5</td>
+<td>2020</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Puebla</td>
+<td>1.1.1</td>
+<td>31.2</td>
+<td>2020</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Oaxaca</td>
+<td>1.1.1</td>
+<td>45.1</td>
+<td>2020</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Filas</strong> — cada registro (observación)</li>
+<li><strong>Columnas</strong> — cada variable</li>
+<li><strong>Índice</strong> — identificador de cada fila (por defecto 0, 1, 2…)</li>
+</ul>
+</div>
+</section>
+<section id="exploración-rápida" class="slide level2">
+<h2>Exploración rápida</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>df.shape        <span class="co"># (filas, columnas)</span></span>
+<span id="cb6-2"><a href=""></a>df.columns      <span class="co"># nombres de columnas</span></span>
+<span id="cb6-3"><a href=""></a>df.dtypes       <span class="co"># tipo de dato por columna</span></span>
+<span id="cb6-4"><a href=""></a>df.info()       <span class="co"># resumen completo</span></span>
+<span id="cb6-5"><a href=""></a>df.describe()   <span class="co"># estadísticas descriptivas</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>df.head()       <span class="co"># primeras 5 filas</span></span>
+<span id="cb7-2"><a href=""></a>df.tail()       <span class="co"># últimas 5 filas</span></span>
+<span id="cb7-3"><a href=""></a>df.sample(<span class="dv">10</span>)   <span class="co"># 10 filas aleatorias</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section></section>
+<section>
+<section id="selección-y-filtrado" class="title-slide slide level1 center" data-background-color="#2c3e50">
+<h1>Selección y filtrado</h1>
+
+</section>
+<section id="seleccionar-columnas" class="slide level2">
+<h2>Seleccionar columnas</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Una columna (regresa Serie)</span></span>
+<span id="cb8-2"><a href=""></a>df[<span class="st">'estado'</span>]</span>
+<span id="cb8-3"><a href=""></a></span>
+<span id="cb8-4"><a href=""></a><span class="co"># Varias columnas (regresa DataFrame)</span></span>
+<span id="cb8-5"><a href=""></a>df[[<span class="st">'estado'</span>, <span class="st">'valor'</span>, <span class="st">'año'</span>]]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="seleccionar-filas" class="slide level2">
+<h2>Seleccionar filas</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Por etiqueta del índice</span></span>
+<span id="cb9-2"><a href=""></a>df.loc[<span class="dv">0</span>]</span>
+<span id="cb9-3"><a href=""></a></span>
+<span id="cb9-4"><a href=""></a><span class="co"># Por posición</span></span>
+<span id="cb9-5"><a href=""></a>df.iloc[<span class="dv">0</span>:<span class="dv">5</span>]</span>
+<span id="cb9-6"><a href=""></a></span>
+<span id="cb9-7"><a href=""></a><span class="co"># Filas y columnas a la vez</span></span>
+<span id="cb9-8"><a href=""></a>df.loc[<span class="dv">0</span>:<span class="dv">5</span>, [<span class="st">'estado'</span>, <span class="st">'valor'</span>]]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="filtrar-datos" class="slide level2">
+<h2>Filtrar datos</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Filtro simple</span></span>
+<span id="cb10-2"><a href=""></a>df[df[<span class="st">'año'</span>] <span class="op">==</span> <span class="dv">2020</span>]</span>
+<span id="cb10-3"><a href=""></a></span>
+<span id="cb10-4"><a href=""></a><span class="co"># Filtro con múltiples condiciones</span></span>
+<span id="cb10-5"><a href=""></a>df[(df[<span class="st">'año'</span>] <span class="op">==</span> <span class="dv">2020</span>) <span class="op">&amp;</span> (df[<span class="st">'estado'</span>] <span class="op">==</span> <span class="st">'Morelos'</span>)]</span>
+<span id="cb10-6"><a href=""></a></span>
+<span id="cb10-7"><a href=""></a><span class="co"># Filtrar por lista de valores</span></span>
+<span id="cb10-8"><a href=""></a>estados <span class="op">=</span> [<span class="st">'Morelos'</span>, <span class="st">'Puebla'</span>, <span class="st">'Oaxaca'</span>]</span>
+<span id="cb10-9"><a href=""></a>df[df[<span class="st">'estado'</span>].isin(estados)]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="frecuencias" class="slide level2">
+<h2>Frecuencias</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># ¿Cuántos registros por estado?</span></span>
+<span id="cb11-2"><a href=""></a>df[<span class="st">'estado'</span>].value_counts()</span>
+<span id="cb11-3"><a href=""></a></span>
+<span id="cb11-4"><a href=""></a><span class="co"># ¿Cuántos indicadores distintos?</span></span>
+<span id="cb11-5"><a href=""></a>df[<span class="st">'indicador'</span>].nunique()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section></section>
+<section>
+<section id="agrupación-y-visualización" class="title-slide slide level1 center" data-background-color="#2c3e50">
+<h1>Agrupación y visualización</h1>
+
+</section>
+<section id="agrupar-con-groupby" class="slide level2">
+<h2>Agrupar con <code>groupby</code></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="co"># Promedio por estado</span></span>
+<span id="cb12-2"><a href=""></a>df.groupby(<span class="st">'estado'</span>)[<span class="st">'valor'</span>].mean()</span>
+<span id="cb12-3"><a href=""></a></span>
+<span id="cb12-4"><a href=""></a><span class="co"># Suma por ODS y año</span></span>
+<span id="cb12-5"><a href=""></a>df.groupby([<span class="st">'ods'</span>, <span class="st">'año'</span>])[<span class="st">'valor'</span>].<span class="bu">sum</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ordenar-resultados" class="slide level2">
+<h2>Ordenar resultados</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a><span class="co"># Ordenar de mayor a menor</span></span>
+<span id="cb13-2"><a href=""></a>df.groupby(<span class="st">'estado'</span>)[<span class="st">'valor'</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="visualización-rápida-con-pandas" class="slide level2">
+<h2>Visualización rápida con pandas</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="co"># Gráfica de barras</span></span>
+<span id="cb14-2"><a href=""></a>df.groupby(<span class="st">'estado'</span>)[<span class="st">'valor'</span>].mean().sort_values().plot.barh()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a><span class="co"># Gráfica de líneas — tendencia por año</span></span>
+<span id="cb15-2"><a href=""></a>df.groupby(<span class="st">'año'</span>)[<span class="st">'valor'</span>].mean().plot.line()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href=""></a><span class="co"># Comparar estados</span></span>
+<span id="cb16-2"><a href=""></a>tabla <span class="op">=</span> df.pivot_table(values<span class="op">=</span><span class="st">'valor'</span>, index<span class="op">=</span><span class="st">'año'</span>, columns<span class="op">=</span><span class="st">'estado'</span>)</span>
+<span id="cb16-3"><a href=""></a>tabla[[<span class="st">'Morelos'</span>, <span class="st">'Puebla'</span>]].plot.line()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exportar-resultados" class="slide level2">
+<h2>Exportar resultados</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href=""></a><span class="co"># Guardar a CSV</span></span>
+<span id="cb17-2"><a href=""></a>df.to_csv(<span class="st">"resultados.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb17-3"><a href=""></a></span>
+<span id="cb17-4"><a href=""></a><span class="co"># Guardar a Excel</span></span>
+<span id="cb17-5"><a href=""></a>df.to_excel(<span class="st">"resultados.xlsx"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section></section>
+<section>
+<section id="cierre" class="title-slide slide level1 center" data-background-color="#2c3e50">
+<h1>Cierre</h1>
+
+</section>
+<section id="recapitulación" class="slide level2">
+<h2>Recapitulación</h2>
+<ol type="1">
+<li><strong>Jupyter Notebook</strong> — entorno interactivo para análisis</li>
+<li><strong>CSV vs Excel</strong> — texto plano vs formato enriquecido</li>
+<li><strong>pandas</strong> — leer, explorar y manipular datos tabulares</li>
+<li><strong>DataFrame</strong> — seleccionar, filtrar, agrupar</li>
+<li><strong>Visualización</strong> — gráficas rápidas directo desde pandas</li>
+</ol>
+</section>
+<section id="recursos-para-seguir-aprendiendo" class="slide level2">
+<h2>Recursos para seguir aprendiendo</h2>
+<ul>
+<li><a href="https://pandas.pydata.org/docs/">Documentación oficial de pandas</a></li>
+<li><a href="https://jupyter-notebook.readthedocs.io/">Jupyter Notebook docs</a></li>
+<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/">Python Data Science Handbook</a></li>
+<li><a href="https://agenda2030.mx/">Agenda 2030 México — Datos abiertos</a></li>
+</ul>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="imagenes/logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>HackODS UNAM 2026</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="index_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="index_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiado");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiado");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
